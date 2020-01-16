@@ -17,7 +17,8 @@ push_list = []
 def reddit_scrape(target_sub, target_search, request_count):
     """Fetching Reddit data with praw."""
 
-    results = reddit.subreddit(target_sub).search(target_search, sort='new', limit=request_count)
+    results = reddit.subreddit(target_sub).search(\
+    target_search, sort='new', limit=request_count)
     print("\n  DATE\t\t\t THREAD TITLE")
 
     for post in results:
@@ -26,7 +27,19 @@ def reddit_scrape(target_sub, target_search, request_count):
         formatted_title = post.title.replace(',', '')
         print(f"  {submission_time} \t {formatted_title[:40]} (...)")
 
-        post_data = f"{post.id}, {post.score}, {submission_time}, {formatted_title}"
+        '''
+        TO DO: do something with the below list of comment ids.
+        Consider storing it in the same output, or make a new file.
+        '''
+        comment_ids = post.comments.list()
+        comment_count = len(comment_ids)
+        '''
+        TO DO: add read/export support for individual comments:
+        for comment in comment_ids:
+            print(comment.body) ...
+            '''
+
+        post_data = f"{post.id}, {post.score}, {comment_count}, {submission_time}, {formatted_title}"
         push_list.append(post_data)
 
 
@@ -46,15 +59,20 @@ def write_to_file(stuff_to_send):
                 if item[:6] not in existing_contents:
                     f.write(f"{item} \n")
 
-            print(f"\n  (!) Updating {file_name} w/ fetched content. (!)\n")
+            print(f"\n  (+) Updating {file_name} w/ fetched content.")
+            print(f"      Write successfully completed.\n")
 
     except FileNotFoundError:
         with open(file_name, 'w') as f:
-            f.write(f"Post ID, Score, Date, Title \n")
+            f.write(f"Post ID, Score, Comments, Date, Title \n")
             for item in stuff_to_send:
                 f.write(f"{item} \n")
 
-            print(f"\n  (~) {file_name} not found - writing w/ fetched content. (~)\n")
+            print(f"\n  (!) Creating {file_name} w/ fetched content.")
+            print(f"      Write successfully completed.\n")
+
+    except:
+        print(f"  (X) Write failed - unexpected error!\n")
 
 
 def convert_from_utc(utc_time):
@@ -63,6 +81,9 @@ def convert_from_utc(utc_time):
     fixed_time = time.strftime("%D %H:%M", time.localtime(int(utc_time)))
     return fixed_time
 
+
+print(f"\n  SUBREDDIT\t\t SEARCH TERM")
+print(f"  r/{target_sub}\t\t '{target_search}'")
 
 reddit_scrape(target_sub, target_search, request_count)
 write_to_file(push_list)
