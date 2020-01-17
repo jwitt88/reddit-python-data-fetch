@@ -82,8 +82,8 @@ def convert_from_utc(utc_time):
     return fixed_time
 
 
-print(f"\n  SUBREDDIT\t\t SEARCH TERM")
-print(f"  r/{target_sub}\t\t '{target_search}'")
+print(f"\n  SUBREDDIT\n  r/{target_sub}")
+print(f"\n  KEYWORD\n  '{target_search}'")
 
 reddit_scrape(target_sub, target_search, request_count)
 write_to_file(push_list)
