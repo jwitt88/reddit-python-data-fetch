@@ -78,7 +78,7 @@ def write_to_file(stuff_to_send):
 def convert_from_utc(utc_time):
     """Convert from unix to standard time."""
 
-    fixed_time = time.strftime("%D %H:%M", time.localtime(int(utc_time)))
+    fixed_time = time.strftime("%D", time.localtime(int(utc_time)))
     return fixed_time
 
 
