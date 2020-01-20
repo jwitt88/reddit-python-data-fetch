@@ -1,9 +1,10 @@
 
-# reddit-api-data-fetch (Jan, 2020)
 
-A simple Python 3 script with the [Python Reddit API Wrapper](https://praw.readthedocs.io/en/latest/) to retrieve and store posts from search result data on Reddit.
+# reddit-python-data-fetch
 
-The script takes three arguments (desired subreddit, keyword, and number of posts) to query the API write the output to a .csv file.
+A simple Python 3 script with the [Python Reddit API Wrapper](https://praw.readthedocs.io/en/latest/) to retrieve and store recent posts made in a specific subreddit.
+
+The script takes three arguments (desired subreddit, keyword, and number of days) to query the API write the output to a .csv file.
 
 ## Running the script
 
@@ -18,9 +19,13 @@ cs = 'CLIENT SECRET'
 ua = 'USER AGENT'
 ```
 
-When you've done the above, you're good to cd into the directory with main.<i></i>py and config<i></i>.py, and run the script with your desired arguments. Here's a sample:
+When you've added your details to the config file, you're good to navigate to the directory and run the script with your desired search terms.
+
+Here's a sample:
 
 ```
-python3 main.py austin homeless 100
+python3 main.py austin homeless 14
 ```
-Running the above will retrieve the latest 100 posts in the Austin subreddit containing the keyword 'homeless' in their title or body. These results will then be stored in a file titled <i>austin-homeless.csv</i> which will be created (or updated if it already exists) in the same directory.
+Running the above will pull the most recent posts from the <b><u>austin</u></b> subreddit containing '<b><u>homeless</u></b>' in the title or body that were created within the last <b><u>14 days</u></b>.
+
+These results will then be stored in a file titled <i>austin-homeless.csv</i> which will be created (or updated if it already exists) in the same directory.
