@@ -4,6 +4,7 @@ import time
 import praw
 import config
 
+script, target_sub, target_search, days = argv
 
 def query_reddit(target_sub, target_search, date_cutoff):
     """Fetches Reddit data with praw / config credentials."""
@@ -84,8 +85,6 @@ def convert_from_utc(utc_time):
     fixed_time = time.strftime("%D", time.localtime(int(utc_time)))
     return fixed_time
 
-
-script, target_sub, target_search, days = argv
 
 reddit = praw.Reddit(client_id=config.cid,
 client_secret=config.cs, user_agent=config.ua)
