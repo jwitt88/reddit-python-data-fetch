@@ -16,9 +16,9 @@ def query_reddit(target_sub, target_search, target_count):
 
     else:
         print("\n  [POST]   [TITLE]")
-        filter_results(results)
+        filter_results(results, target_search)
 
-def filter_results(results):
+def filter_results(results, target_search):
     """Filters the results from query_reddit() and appends to push_list"""
 
     for post in results:
@@ -38,7 +38,7 @@ def filter_results(results):
         comment_count = len(comment_ids)
 
         submission_time = convert_from_utc(post.created_utc)
-        post_data = f"{post.id},{post.score},{comment_count},{submission_time},{formatted_title}"
+        post_data = f"{post.id},{target_search},{post.score},{comment_count},{submission_time},{formatted_title}"
         push_list.append(post_data)
 
 def write_to_file(stuff_to_send):
@@ -64,7 +64,7 @@ def write_to_file(stuff_to_send):
 
         except FileNotFoundError:
             with open(file_name, 'w') as f:
-                f.write(f"Post ID,Score,Comments,Date,Title\n")
+                f.write(f"Post ID,Keyword,Score,Comments,Date,Title\n")
                 for item in stuff_to_send:
                     f.write(f"{item} \n")
 
