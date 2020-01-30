@@ -64,7 +64,7 @@ def write_to_file(stuff_to_send):
 
         except FileNotFoundError:
             with open(file_name, 'w') as f:
-                f.write(f"Post ID,Keyword,Score,Comments,Date,Title\n")
+                f.write(f"Post_ID,Keyword,Score,Comments,Date,Title\n")
                 for item in stuff_to_send:
                     f.write(f"{item} \n")
 
