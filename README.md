@@ -21,4 +21,4 @@ ua = 'USER AGENT'
 
 When you've added your details to the config file, you're good to navigate to the directory and run the script with your desired search terms.
 
-These results will then be stored in a file titled <i>subreddit-searchterm.csv</i> which will be created (or updated if it already exists) in the same directory.
+These results will then be stored in a file titled <i>subreddit-results.csv</i> which will be created (or updated if it already exists) in the same directory.
